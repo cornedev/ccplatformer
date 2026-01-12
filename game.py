@@ -13,6 +13,12 @@ pygame.display.set_caption("ccplatformer")
 gameclock = pygame.time.Clock()
 gamefps = 60
 
+camerax = 0
+cameray = 0
+
+worldw = 4000
+worldh = 2000
+
 player = pygame.image.load("gfx/player.png").convert_alpha()
 playerw = 128
 playerh = 128
@@ -32,9 +38,9 @@ def floorcreate(floorx, floory, floorw, floorh):
     return (floorimg, floorrect)
 
 floors = [
-    floorcreate(400, 400, 1000, 100),
-    floorcreate(200, 500, 1000, 100),
-    floorcreate(200, 600, 1000, 100)
+    floorcreate(0, 600, 4000, 100),
+    floorcreate(600, 450, 800, 100),
+    floorcreate(1600, 350, 800, 100),
 ]
 
 white = (255, 255, 255)
@@ -79,10 +85,13 @@ while gamerunning:
                 playerrect.top = floorrect.bottom
                 playervely = 0
 
+    camerax = playerrect.centerx - gamew // 2
+    camerax = max(0, min(camerax, worldw - gamew))
+
     gamescreen.fill(blue)
-    gamescreen.blit(player, playerrect)
+    gamescreen.blit(player, (playerrect.x - camerax, playerrect.y - cameray))
     for floorimg, floorrect in floors:
-        gamescreen.blit(floorimg, floorrect)
+        gamescreen.blit(floorimg, (floorrect.x - camerax, floorrect.y - cameray))
 
     pygame.display.flip()
     gameclock.tick(gamefps)
