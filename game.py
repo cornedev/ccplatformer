@@ -7,6 +7,8 @@ gamew = 1000
 gameh = 700
 
 gamescreen = pygame.display.set_mode((gamew, gameh))
+gameicon = pygame.image.load("gfx/icon.png").convert_alpha()
+pygame.display.set_icon(gameicon)
 pygame.display.set_caption("ccplatformer")
 gameclock = pygame.time.Clock()
 gamefps = 60
