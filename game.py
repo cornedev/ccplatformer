@@ -1,10 +1,8 @@
 import pygame
 import sys
 
-from obstacles import floorcreate, coincreate
-
 pygame.init()
-
+pygame.mixer.init()
 gamew = 1000
 gameh = 700
 
@@ -15,41 +13,25 @@ pygame.display.set_caption("ccplatformer")
 gameclock = pygame.time.Clock()
 gamefps = 60
 
+from obstacles import floorcreate, coincreate
+from player import *
+from coin import *
+from audio import *
+
+musicstart()
+
 camerax = 0
 cameray = 0
 
 worldw = 4000
 worldh = 2000
 
-playersheet = pygame.image.load("gfx/playerspritesheet_walk_idle.png").convert_alpha()
-playerframew = 32
-playerframeh = 64
-playerw = 64
-playerh = 128
-playerx = 200
-playery = 200
-playerframecount = 4
-
-playerframes = []
-for i in range(playerframecount):
-    playerframe = playersheet.subsurface(
-        pygame.Rect(i * playerframew, 0, playerframew, playerframeh)
-    )
-    playerframe = pygame.transform.scale(playerframe, (playerw, playerh))
-    playerframes.append(playerframe)
-
-player = playerframes[0]
-playerrect = player.get_rect(topleft=(playerx, playery))
-playerspeed = 5
-playergravity = 1
-playervely = 0
-playerjumpstrength = -18
-playerframeindex = 0
-playeranimspeed = 0.15
-playercrouch = pygame.image.load("gfx/playerspritesheet_crouch.png").convert_alpha()
-playercrouchframe = pygame.transform.scale(playercrouch, (playerw, playerh))
-playerjump = pygame.image.load("gfx/playerspritesheet_jump.png").convert_alpha()
-playerjumpframe = pygame.transform.scale(playerjump, (playerw, playerh))
+coins = [
+    {"rect": coincreate(coinframes[0], 300, 300)[1], "coinframeindex": 0},
+    {"rect": coincreate(coinframes[0], 400, 300)[1], "coinframeindex": 0},
+    {"rect": coincreate(coinframes[0], 500, 300)[1], "coinframeindex": 0},
+    {"rect": coincreate(coinframes[0], 600, 300)[1], "coinframeindex": 0},
+]
 
 floor = pygame.image.load("gfx/floor.png").convert_alpha()
 floors = [
@@ -58,28 +40,12 @@ floors = [
     floorcreate(floor, 1600, 350, 800, 100),
 ]
 
-coin = pygame.image.load("gfx/coinspritesheet.png").convert_alpha()
-coinframew = 64
-coinframeh = 64
-coinframecount = 6
-coinanimspeed = 0.15
-
-coinframes = []
-for i in range(coinframecount):
-    coinframe = coin.subsurface(pygame.Rect(i * coinframew, 0, coinframew, coinframeh))
-    coinframe = pygame.transform.scale(coinframe, (64, 64))
-    coinframes.append(coinframe)
-
-coins = [
-    {"rect": coincreate(coinframes[0], 300, 300)[1], "coinframeindex": 0},
-]
-
 white = (255, 255, 255)
 blue = (135, 206, 235)
 
 ground = True
-playerright = True
 gamerunning = True
+musicrunning = True
 
 while gamerunning:
     for event in pygame.event.get():
@@ -88,7 +54,6 @@ while gamerunning:
    
     gamedx = 0
     gameinput = pygame.key.get_pressed()
-    
     if gameinput[pygame.K_a]:
         playerright = False
     if gameinput[pygame.K_d]:
