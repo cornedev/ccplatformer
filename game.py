@@ -103,6 +103,7 @@ while gamerunning:
     if gameinput[pygame.K_SPACE] and ground:
         playervely = playerjumpstrength
         ground = False
+        playerjumpsfx()
 
     playervely += playergravity
     playerrect.y += playervely
@@ -123,7 +124,14 @@ while gamerunning:
     gamescreen.fill(blue)
     gamescreen.blit(player, (playerrect.x - camerax, playerrect.y - cameray))
 
-    coins = [coin for coin in coins if not playerrect.colliderect(coin["rect"])]
+    coinsnew = []
+    for coin in coins:
+        if playerrect.colliderect(coin["rect"]):
+            playercoinsfx() 
+        else:
+            coinsnew.append(coin)
+    coins = coinsnew
+
     for coin in coins:
         coin["coinframeindex"] += coinanimspeed
         if coin["coinframeindex"] >= len(coinframes):
