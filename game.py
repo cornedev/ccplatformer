@@ -45,12 +45,19 @@ blue = (135, 206, 235)
 
 ground = True
 gamerunning = True
-musicrunning = True
 
 while gamerunning:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             gamerunning = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_i:
+                if musicrunning:
+                    pygame.mixer.music.pause()
+                    musicrunning = False
+                else:
+                    pygame.mixer.music.unpause()
+                    musicrunning = True
    
     gamedx = 0
     gameinput = pygame.key.get_pressed()
