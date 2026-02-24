@@ -12,3 +12,8 @@ for i in range(coinframecount):
     coinframe = coin.subsurface(pygame.Rect(i * coinframew, 0, coinframew, coinframeh))
     coinframe = pygame.transform.scale(coinframe, (64, 64))
     coinframes.append(coinframe)
+
+def coincreate(coin, coinx, coiny):
+    coinimg = pygame.transform.scale(coin, (64, 64))
+    coinrect = coinimg.get_rect(topleft=(coinx, coiny))
+    return (coinimg, coinrect)

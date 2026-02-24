@@ -1,4 +1,6 @@
 import pygame
+from coin import *
+from enemies import *
 
 playerframew = 32
 playerframeh = 64
@@ -32,3 +34,16 @@ playerrect = player.get_rect(topleft=(playerx, playery))
 playervely = 0
 playerframeindex = 0
 playerright = True
+
+playerspawnx = playerrect.x
+playerspawny = playerrect.y
+
+def playerreset():
+    global playerrect, playervely, ground
+
+    playerrect.x = playerspawnx
+    playerrect.y = playerspawny
+
+    playervely = 0
+
+    ground = False
