@@ -43,7 +43,8 @@ floors = [
     floorcreate(floorsand, 640, 576, 640, 64),
     floorcreate(floorsand, 1280, 576, 640, 64),
     floorcreate(floorsandstone, 0, 512, 640, 64),
-    floorcreate(floorsandstone, 800, 448, 640, 64),
+    floorcreate(floorsandstone, 800, 384, 640, 64),
+    floorcreate(floorsandstone, 1280, 512, 640, 64),
 ]
 
 lantern = pygame.image.load("gfx/lantern.png").convert_alpha()
@@ -53,7 +54,7 @@ lanterns = [
 
 finish = pygame.image.load("gfx/finish.png").convert_alpha()
 finishes = [
-    finishcreate(finish, 936, 320),
+    finishcreate(finish, 936, 256),
 ]
 
 def levelreset():
