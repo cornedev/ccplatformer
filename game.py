@@ -13,7 +13,7 @@ gameh = 700
 gamescreen = pygame.display.set_mode((gamew, gameh))
 gameicon = pygame.image.load("gfx/terranox.png").convert_alpha()
 pygame.display.set_icon(gameicon)
-pygame.display.set_caption("ccplatformer")
+pygame.display.set_caption("terranox")
 gameclock = pygame.time.Clock()
 gamefps = 60
 gamefont = pygame.font.Font(None, 40)
